@@ -1,28 +1,14 @@
-import { ChangeEventHandler, FormEventHandler, useState } from "react";
+import SignupFormDefault from "./SignupFormDefault";
+import SignupFormFormik from "./SignupFormFormik";
 
 function App() {
-  const [email, setEmail] = useState("");
-
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handleSubmit: FormEventHandler = (event) => {
-    event.preventDefault();
-    console.log(email);
-  };
-
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleChange}
-        />
-        <button type="submit">제출</button>
-      </form>
+      <h2>Default</h2>
+      <SignupFormDefault />
+      <hr />
+      <h2>Formik</h2>
+      <SignupFormFormik />
     </div>
   );
 }

@@ -38,7 +38,7 @@ const SignupFormFormik: FC = () => {
           {...formik.getFieldProps("firstName")}
         />
         {formik.touched.firstName && formik.errors.firstName && (
-          <p>{formik.errors.firstName}</p>
+          <div>{formik.errors.firstName}</div>
         )}
       </div>
       <div>
@@ -49,14 +49,14 @@ const SignupFormFormik: FC = () => {
           {...formik.getFieldProps("lastName")}
         />
         {formik.touched.lastName && formik.errors.lastName && (
-          <p>{formik.errors.lastName}</p>
+          <div>{formik.errors.lastName}</div>
         )}
       </div>
       <div>
         <label htmlFor="email">Email Address:</label>
         <input id="email" type="email" {...formik.getFieldProps("email")} />
         {formik.touched.email && formik.errors.email && (
-          <p>{formik.errors.email}</p>
+          <div>{formik.errors.email}</div>
         )}
       </div>
       <button type="submit">Submit</button>

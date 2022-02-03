@@ -3,9 +3,15 @@ import { FC } from "react";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object({
-  firstName: Yup.string().required("Required").max(15),
-  lastName: Yup.string().required("Required"),
-  email: Yup.string().required("Required"),
+  firstName: Yup.string()
+    .required("이름을 입력하세요")
+    .max(3, "3자 이하로 입력하세요"),
+  lastName: Yup.string()
+    .required("성을 입력하세요")
+    .max(2, "2자 이하로 입력하세요"),
+  email: Yup.string()
+    .required("전자우편 주소를 입력하세요")
+    .email("이메일 형식에 맞게 입력하세요"),
 });
 
 type SignupFormValue = Yup.InferType<typeof validationSchema>;
@@ -23,16 +29,13 @@ const SignupFormFormik: FC = () => {
     },
   });
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit} noValidate>
       <div>
         <label htmlFor="firstName">First Name:</label>
         <input
           id="firstName"
-          name="firstName"
           type="text"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.firstName}
+          {...formik.getFieldProps("firstName")}
         />
         {formik.touched.firstName && formik.errors.firstName && (
           <p>{formik.errors.firstName}</p>
@@ -42,11 +45,8 @@ const SignupFormFormik: FC = () => {
         <label htmlFor="firstName">Last Name:</label>
         <input
           id="lastName"
-          name="lastName"
           type="text"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.lastName}
+          {...formik.getFieldProps("lastName")}
         />
         {formik.touched.lastName && formik.errors.lastName && (
           <p>{formik.errors.lastName}</p>
@@ -54,14 +54,10 @@ const SignupFormFormik: FC = () => {
       </div>
       <div>
         <label htmlFor="email">Email Address:</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.email}
-        />
+        <input id="email" type="email" {...formik.getFieldProps("email")} />
+        {formik.touched.email && formik.errors.email && (
+          <p>{formik.errors.email}</p>
+        )}
       </div>
       <button type="submit">Submit</button>
     </form>

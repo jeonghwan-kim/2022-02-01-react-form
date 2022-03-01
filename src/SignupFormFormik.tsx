@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import { FC } from "react";
 import * as Yup from "yup";
+import "./styles.css";
 
 const validationSchema = Yup.object({
   firstName: Yup.string()
@@ -38,7 +39,7 @@ const SignupFormFormik: FC = () => {
           {...formik.getFieldProps("firstName")}
         />
         {formik.touched.firstName && formik.errors.firstName && (
-          <div>{formik.errors.firstName}</div>
+          <div className="error">{formik.errors.firstName}</div>
         )}
       </div>
       <div>
@@ -49,14 +50,14 @@ const SignupFormFormik: FC = () => {
           {...formik.getFieldProps("lastName")}
         />
         {formik.touched.lastName && formik.errors.lastName && (
-          <div>{formik.errors.lastName}</div>
+          <div className="error">{formik.errors.lastName}</div>
         )}
       </div>
       <div>
         <label htmlFor="email">Email Address:</label>
         <input id="email" type="email" {...formik.getFieldProps("email")} />
         {formik.touched.email && formik.errors.email && (
-          <div>{formik.errors.email}</div>
+          <div className="error">{formik.errors.email}</div>
         )}
       </div>
       <button type="submit">Submit</button>

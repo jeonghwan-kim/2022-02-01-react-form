@@ -1,46 +1,35 @@
-# Getting Started with Create React App
+# 2022-02-01 React 폼 다루기
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 할 일
 
-## Available Scripts
+- [x] Formik 공식 문서 읽기
+- [x] Formik 블로그 읽기
+- [x] Formik 사용하기
+- [ ] Formik 만들기
+- [ ] Yup 만들기
 
-In the project directory, you can run:
+## 정리
 
-### `npm start`
+## React로 만들기
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`<SignupFormDefault>`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+values 상태를 만들고 제어 컴포넌트 값으로 사용한다.
 
-### `npm test`
+errors 상태를 만들고 오류 메세지를 다룬다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+touched 상태를 만들고 오류 메세지 값이 참일 경우 오류 errors 문자열을 렌더한다.
 
-### `npm run build`
+submitted 상태를 만들고 폼 제출 이후에는 필드 값이 변경될 때마다 값을 검증한다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 새로 배운 것
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`ChangeEventHandler<>`, `FormEventHandler`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 이벤트 핸들러 타입을 사용하자. 타입스크립트 지원 버전
 
-### `npm run eject`
+## 일지
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 2022-03-01 화
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+시작한지 벌써 한 달이 지났구나. 중간에 길게 쉬었다. 다시 힘을 내서 공부하자.

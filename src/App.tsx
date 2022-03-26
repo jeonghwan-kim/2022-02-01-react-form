@@ -19,12 +19,11 @@ function App() {
       <LoginForm5 />
       <LoginForm6 />
 
-      {/* <SignupFormDefault2 />
-      <hr />
-      <h2>Formik</h2>
-      <SignupFormFormik />
-      <h2>Formik(Render Props)</h2>
-      <SignupFormFormikRenderProps /> */}
+      {/* <SignupFormDefault2 /> */}
+      {/* <h2>Formik</h2> */}
+      {/* <SignupFormFormik /> */}
+      {/* <h2>Formik(Render Props)</h2> */}
+      {/* <SignupFormFormikRenderProps /> */}
     </>
   );
 }

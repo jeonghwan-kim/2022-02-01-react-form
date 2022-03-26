@@ -3,6 +3,7 @@ import {
   createContext,
   FC,
   FormEventHandler,
+  PropsWithChildren,
   useCallback,
   useContext,
   useEffect,
@@ -60,7 +61,7 @@ function useForm<T>({ initialValues, validate, onSubmit }: UseFormArgs<T>) {
   useEffect(() => {
     const errors = runValidator();
     setErrors(errors);
-  }, [values, runValidator]);
+  }, [runValidator]);
 
   const getFieldProps = (name: keyof T) => {
     const value = values[name];
@@ -84,39 +85,23 @@ function useForm<T>({ initialValues, validate, onSubmit }: UseFormArgs<T>) {
   };
 }
 
-const context = createContext<any>({});
-context.displayName = "FormContext";
+const FormContext = createContext<any>({});
+FormContext.displayName = "FormContext";
 
-interface FormProps {}
-const Form: FC = ({ children }) => {
-  const myform = useForm<LoginFormValue>({
-    initialValues: { email: "", password: "" },
-    validate: (values) => {
-      const errors = {
-        email: "",
-        password: "",
-      };
+type FormProps<T> = UseFormArgs<T>;
 
-      if (!values.email) {
-        errors.email = "이메일을 입력하세요";
-      }
-      if (!values.password) {
-        errors.password = "비밀번호를 입력하세요";
-      }
-
-      return errors;
-    },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
+function Form<T>({
+  children,
+  ...props
+}: PropsWithChildren<FormProps<T>>): JSX.Element {
+  const formValue = useForm<T>(props);
 
   return (
-    <context.Provider value={myform}>
-      <form onSubmit={myform.handleSubmit}>{children} </form>
-    </context.Provider>
+    <FormContext.Provider value={formValue}>
+      <form onSubmit={formValue.handleSubmit}>{children} </form>
+    </FormContext.Provider>
   );
-};
+}
 
 interface FieldProps {
   type: string;
@@ -124,7 +109,7 @@ interface FieldProps {
 }
 
 const Field: FC<FieldProps> = (props) => {
-  const { getFieldProps } = useContext(context);
+  const { getFieldProps } = useContext(FormContext);
   return <input {...props} {...getFieldProps(props.name)} />;
 };
 
@@ -133,7 +118,7 @@ interface ErrorMessageProps {
 }
 
 const ErrorMessage: FC<ErrorMessageProps> = ({ name }) => {
-  const { touched, errors } = useContext(context);
+  const { touched, errors } = useContext(FormContext);
   if (!touched[name] || !errors[name]) {
     return null;
   }
@@ -146,10 +131,33 @@ interface LoginFormValue {
 }
 
 const LginForm6: FC = () => {
+  const validate = (values: LoginFormValue) => {
+    const errors = {
+      email: "",
+      password: "",
+    };
+
+    if (!values.email) {
+      errors.email = "이메일을 입력하세요";
+    }
+    if (!values.password) {
+      errors.password = "비밀번호를 입력하세요";
+    }
+
+    return errors;
+  };
+  const handleSubmit = (values: LoginFormValue) => {
+    alert(JSON.stringify(values, null, 2));
+  };
+
   return (
     <>
-      <h1>6단계. 컨택스트</h1>
-      <Form>
+      <h1>6단계. 컨텍스트</h1>
+      <Form<LoginFormValue>
+        initialValues={{ email: "", password: "" }}
+        validate={validate}
+        onSubmit={handleSubmit}
+      >
         <Field type="email" name="email" />
         <ErrorMessage name="email" />
         <Field type="password" name="password" />

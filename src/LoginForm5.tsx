@@ -58,7 +58,7 @@ function useForm<T>({ initialValues, validate, onSubmit }: UseFormArgs<T>) {
   useEffect(() => {
     const errors = runValidator();
     setErrors(errors);
-  }, [values, runValidator]);
+  }, [runValidator]);
 
   const getFieldProps = (name: keyof T) => {
     const value = values[name];

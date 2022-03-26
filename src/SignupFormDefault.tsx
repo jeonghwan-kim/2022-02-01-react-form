@@ -36,17 +36,20 @@ const SignupFormDefault: FC = () => {
       [event.target.name]: event.target.value,
     });
 
+    // if (submitted) {
+    validate({
+      ...values,
+      [event.target.name]: event.target.value,
+    });
+    // }
+  };
+
+  const handleBlur: ChangeEventHandler<HTMLInputElement> = (event) => {
     setTouched({
       ...touched,
       [event.target.name]: true,
     });
-
-    if (submitted) {
-      validate({
-        ...values,
-        [event.target.name]: event.target.value,
-      });
-    }
+    validate(values);
   };
 
   const handleSubmit: FormEventHandler = (event) => {
@@ -64,8 +67,6 @@ const SignupFormDefault: FC = () => {
   };
 
   const validate = (values: SignupFormValue) => {
-    console.log(values);
-
     const _errors: typeof errors = {
       email: "",
       firstName: "",
@@ -94,24 +95,26 @@ const SignupFormDefault: FC = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="email">First Name:</label>
+        <label htmlFor="firstName">First Name:</label>
         <input
           type="text"
           name="firstName"
           value={values.firstName}
           onChange={handleChange}
+          onBlur={handleBlur}
         />
         {touched.firstName && errors.firstName && (
           <div className="error">{errors.firstName}</div>
         )}
       </div>
       <div>
-        <label htmlFor="email">Last Name:</label>
+        <label htmlFor="lastNae">Last Name:</label>
         <input
           type="text"
           name="lastName"
           value={values.lastName}
           onChange={handleChange}
+          onBlur={handleBlur}
         />
         {touched.lastName && errors.lastName && (
           <div className="error">{errors.lastName}</div>
@@ -124,6 +127,7 @@ const SignupFormDefault: FC = () => {
           name="email"
           value={values.email}
           onChange={handleChange}
+          onBlur={handleBlur}
         />
         {touched.email && errors.email && (
           <div className="error">{errors.email}</div>
